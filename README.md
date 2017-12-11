@@ -78,8 +78,8 @@ Stuff I already think I can figure out:
 - compare player 1 score to player 2 
 
 Stuff I need help with: 
+
 - how to make guy run into object 
-- how to control a guy that is moving downhill constantly without making him stop moving
 
 --
 
@@ -96,20 +96,6 @@ use piskel app to make some art
 --
 
 
-Pseudocode to probably move to JS file: 
 
-Can use JS to calculate the width of the screen
-
-creating a lot of obstacles so you can't use variables
-
-Use a constructor function to create obstacles
-
-Build obstacles with constructor function, pass a speed so that the obstacle travels toward the player
-
-Can test it in the console
-
-Today- create the obstacle
-
-Tomorrow- create the player 
 
 
