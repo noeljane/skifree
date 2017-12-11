@@ -30,4 +30,9 @@ Steps to get this work done:
 */
 
 //Variables
-var 
+var $obstacle = $('.obstacle')
+$obstacle.css('left', window.innerWidth)
+
+setInterval(function(){
+    $obstacle.css('left', "-=5px")
+},5000)
