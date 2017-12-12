@@ -26,7 +26,8 @@ Day 2
 // Variables
 var $body = $('body')
 var $skier = $('#skier')
-var $turn = $('#turn')
+var $turnRight = $('#turnRight')
+var $turnLeft = $('#turnLeft')
 
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
@@ -43,13 +44,13 @@ $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
     var $newObstacle = $('<div>')
     $newObstacle.css({
-        "position": "absolute",
+        "position": "fixed",
         "top": window.innerHeight,
         "color": "forestgreen",
         "border": "2px solid black",
         "width": "100px",
         "height": "100px", 
-        "display": "inline",    
+        "display": "inline-block",    
     })
     $skier.append($newObstacle)
     setInterval(function(){
@@ -58,14 +59,27 @@ $start.on("click", function (){
     
 })
 
-//Function to make my skier move
-$turn.on('click', function (){
+//Function to make my skier move right
+$turnRight.on('click', function (){
     console.log("Sick carves, brah!")
-    $skier.css({
-        "position": "relative",
-        "left": "150px"
-    })
+    $skier.css('left', '+=50px') 
 })
+
+$turnLeft.on('click', function (){
+    console.log("A la izquierda broseph!")
+    $skier.css('left', '-=50px')
+})
+
+//Function to make my skier move right
+
+//Zeke notes: 
+//Make sure that we can "get" the x & y coordinate of each obstacle because that information will help us figure out collision
+//Need to get the x coordinate of the skier
+//To get the y value, I need to find out what "top" is for each obstacle (top is the y value for each obstacle)
+//To get the x value, I need the "left" is for each obstacle
+// On each run of the interval function, we should check to see if the obstacle is colliding with the skier
+
+
 
 // // Constructor Function ? 
 
