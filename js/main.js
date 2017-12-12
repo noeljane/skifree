@@ -62,7 +62,7 @@ $start.on("click", function (){
     $skier.append($newObstacle)
     setInterval(function(){
         $newObstacle.css('top','-=5px')
-    }, 1000)
+    }, 100)
     collisionCheck()
 })
 
@@ -84,8 +84,8 @@ function collisionCheck (){
     var obstacleY = $newObstacle.css("top")
     var skierX = $skier.css("left")
     var skierY = $skier.css("top")
-    if ((obstacleX === skierX) && (obstacleY === skierY)){
-        console.log("You crashed! Gnarly faceplant")
+    if (obstacleY === skierY) {
+        console.log("Wipeout!")
     }
 
 }
