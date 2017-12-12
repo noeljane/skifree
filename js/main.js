@@ -76,7 +76,7 @@ function collisionCheck (){
     var skierY = parseInt($skier.css("top"))
     // console.log(obstacleX)
     // console.log(skierX)
-    if ((obstacleY === skierY)  && (parseInt($newObstacle.css('left')) === skierX)) {
+    if ((parseInt($newObstacle.css("top")) === skierY)  || (parseInt($newObstacle.css('left')) === skierX)) {
         $skier.toggle("explode")
         console.log("Wipeout!")
     }
@@ -110,7 +110,7 @@ $start.on("click", function (){
         console.log(parseInt($newObstacle.css('left')))
         console.log(skierX)
         collisionCheck()
-        if ((obstacleY < 0)){
+        if (obstacleY < 0){
             $newObstacle.css("top","800px")
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
