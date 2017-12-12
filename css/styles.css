@@ -1,10 +1,19 @@
-h1{
+h1 {
     color: cornflowerblue;
 }
 
-.obstacle{
+.obstacle {
     color: forestgreen;
+    border: 2px solid black;
     width: 100px;
     height: 100px;
     position: absolute;
+}
+
+.tree {
+    color: forestgreen;
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+    position: absolute; 
 }
