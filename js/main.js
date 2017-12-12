@@ -29,6 +29,14 @@ var $skier = $('#skier')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 
+var $newObstacle = $('<div>')
+
+
+var obstacleX = $newObstacle.css("left")
+var obstacleY = $newObstacle.css("top")
+var skierX = $skier.css("left")
+var skierY = $skier.css("top")
+
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
 var colors = ["green","black","grey"]
@@ -42,7 +50,6 @@ var $start = $('#start')
 //Function to create more obstacles
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
-    var $newObstacle = $('<div>')
     $newObstacle.css({
         "position": "fixed",
         "top": window.innerHeight,
@@ -55,8 +62,8 @@ $start.on("click", function (){
     $skier.append($newObstacle)
     setInterval(function(){
         $newObstacle.css('top','-=5px')
-    }, 100)
-    
+    }, 1000)
+    collisionCheck()
 })
 
 //Function to make my skier move right
@@ -65,12 +72,24 @@ $turnRight.on('click', function (){
     $skier.css('left', '+=50px') 
 })
 
+// Function to make my skier move left
 $turnLeft.on('click', function (){
     console.log("A la izquierda broseph!")
     $skier.css('left', '-=50px')
 })
 
-//Function to make my skier move right
+//Function to check for collision
+function collisionCheck (){
+    var obstacleX = $newObstacle.css("left")
+    var obstacleY = $newObstacle.css("top")
+    var skierX = $skier.css("left")
+    var skierY = $skier.css("top")
+    if ((obstacleX === skierX) && (obstacleY === skierY)){
+        console.log("You crashed! Gnarly faceplant")
+    }
+
+}
+
 
 //Zeke notes: 
 //Make sure that we can "get" the x & y coordinate of each obstacle because that information will help us figure out collision
@@ -79,26 +98,3 @@ $turnLeft.on('click', function (){
 //To get the x value, I need the "left" is for each obstacle
 // On each run of the interval function, we should check to see if the obstacle is colliding with the skier
 
-
-
-// // Constructor Function ? 
-
-// function obstacle(name,color){
-//     this.name = name
-//     this.print = function(){
-//         console.log("I'm a " + name)
-//     }
-//     this.move = function (){
-//         setInterval(function(){
-//             $obstacle.css('left', '-=5px')
-
-//         }, 500)
-//     }
-// }
-
-
-//Function
-
-
-//New obstacles 
-// var tree = new obstacle('tree')
