@@ -15,6 +15,10 @@ Day 1
 Day 2
 1. Make the obstacles come automatically 
 2. Set up what a collision means
+    -make scoreboard
+    -establish boundary of collision 
+3. Make the obstacles appear from different points on the screen. 
+4. Make the skier jump different directions to avoid collision
 
 
 */
