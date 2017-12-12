@@ -12,30 +12,46 @@ Day 1
 7. Make the skier x
 8. Make the skier move x
 
+//Zeke notes: 
+//Make sure that we can "get" the x & y coordinate of each obstacle because that information will help us figure out collision
+//Need to get the x coordinate of the skier
+//To get the y value, I need to find out what "top" is for each obstacle (top is the y value for each obstacle)
+//To get the x value, I need the "left" is for each obstacle
+// On each run of the interval function, we should check to see if the obstacle is colliding with the skier
+
 Day 2
-1. Make the obstacles come automatically 
-2. Set up what a collision means
+1. Make the obstacles come automatically x 
+2. Set up what a collision means x
     -make scoreboard
     -establish boundary of collision 
-3. Make the obstacles appear from different points on the screen. 
-4. Make the skier jump different directions to avoid collision
+        -set up y coordinates x
+        -set up x cooridnates 
+3. Make the obstacles appear from different points on the screen. x 
+4. Make the skier jump different directions to avoid collision. x
 
+Day 2 Afternoon: 
+1. Figure out how to check x coordinates 
+2. Clean up code
+    -make more things happen programmatically
+    -make code more DRY and easy to read
 
 */
 
 // Variables
+// ////////////////////////////////////////////////////////////////////
+//Variables for 
 var $body = $('body')
 var $skier = $('#skier')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 
 var $newObstacle
-
-
 var obstacleX
 var obstacleY
-var skierX = $skier.css("left")
-var skierY = $skier.css("top")
+
+
+var skierX = parseInt($skier.css("left"))
+var skierY = parseInt($skier.css("top"))
 
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
@@ -46,17 +62,37 @@ var speeds = [1000, 500, 100]
 var $start = $('#start')
 
 //Functions
+//////////////////////////////////////////////////////////////////////////
+
 function randomInt(hi) {
     return Math.floor(Math.random()* hi)
+}
+
+//Function to check for collision
+function collisionCheck (){
+    var obstacleX = parseInt($newObstacle.css("left"))
+    var obstacleY = parseInt($newObstacle.css("top"))
+    var skierX = parseInt($skier.css("left"))
+    var skierY = parseInt($skier.css("top"))
+    // console.log(obstacleX)
+    // console.log(skierX)
+    if ((obstacleY === skierY)  && (parseInt($newObstacle.css('left')) === skierX)) {
+        $skier.toggle("explode")
+        console.log("Wipeout!")
+    }
+
 }
 
 //Function to create more obstacles
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
     $newObstacle = $('<div>')
-    obstacleX = $newObstacle.css("left")
-    obstacleY = $newObstacle.css("top")
+    obstacleX = parseInt($newObstacle.css("left"))
+    obstacleY = parseInt($newObstacle.css("top"))
     
+    var skierX = parseInt($skier.css("left"))
+    var skierY = parseInt($skier.css("top"))
+
     $newObstacle.css({
         "position": "fixed",
         "top": window.innerHeight,
@@ -68,15 +104,18 @@ $start.on("click", function (){
         "display": "inline-block",    
     })
     $skier.append($newObstacle)
+    console.log(parseInt($newObstacle.css('left')))
     setInterval(function(){
         $newObstacle.css('top','-=5px')
+        console.log(parseInt($newObstacle.css('left')))
+        console.log(skierX)
         collisionCheck()
-        if (parseInt( $newObstacle.css("top")) < 0){
+        if ((obstacleY < 0)){
             $newObstacle.css("top","800px")
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 50)
+    }, 100)
     
 })
 
@@ -84,6 +123,8 @@ $start.on("click", function (){
 $turnRight.on('click', function (){
     console.log("Sick carves, brah!")
     $skier.css('left', '+=50px') 
+    console.log($skier.css('left'))
+
 })
 
 // Function to make my skier move left
@@ -92,27 +133,6 @@ $turnLeft.on('click', function (){
     $skier.css('left', '-=50px')
 })
 
-//Function to check for collision
-function collisionCheck (){
-    var obstacleX = parseInt( $newObstacle.css("left"))
-    var obstacleY = parseInt( $newObstacle.css("top"))
-    var skierX = parseInt($skier.css("left"))
-    var skierY = parseInt($skier.css("top"))
-    // console.log(obstacleY)
-    // console.log(skierY)
-    if (obstacleY < skierY) {
-        $skier.toggle("explode")
-        console.log("Wipeout!")
-    }
-
-}
 
 
-//Zeke notes: 
-//Make sure that we can "get" the x & y coordinate of each obstacle because that information will help us figure out collision
-//Need to get the x coordinate of the skier
-//To get the y value, I need to find out what "top" is for each obstacle (top is the y value for each obstacle)
-//To get the x value, I need the "left" is for each obstacle
-// On each run of the interval function, we should check to see if the obstacle is colliding with the skier
 
-//2 obstacles
