@@ -41,18 +41,16 @@ Day 2 Afternoon:
 // ////////////////////////////////////////////////////////////////////
 //Variables for 
 var $body = $('body')
-var $skier = $('#skier')
+var $slope = $('#slope')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 var $turnDown = $('#turnDown')
 
+var $skier
 var $newObstacle
 var obstacleX
 var obstacleY
 
-
-var skierX = parseInt($skier.css("left"))
-var skierY = parseInt($skier.css("top"))
 
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
@@ -77,19 +75,29 @@ function collisionCheck (){
     var skierY = parseInt($skier.css("top"))
     console.log(obstacleX)
     console.log(skierX)
-    // if ((obstacleY < skierY)  && (parseInt($newObstacle.css('left')) === skierX)) {
-    //     $skier.toggle("explode")
-    //     console.log("Wipeout!")
-    // } 
+    if (obstacleY < skierY) {
+        $skier.toggle("explode")
+        console.log("Wipeout!")
+    } 
     //  if (parseInt(($newObstacle.css('left')) > skierX) && ($newObstacle.css('right') < skierX)){
     //     console.log("You good!")
     // }   
 
 }
 
+
 //Function to create more obstacles
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
+    //create skier
+    $skier = $("<div id='skier'>")
+    $slope.append($skier)
+    setInterval(function(){
+        console.log("Rip it!")
+        $skier.css("top", "+=10px")
+    },100)
+    
+    //create obstacle
     $newObstacle = $("<div id='obstacle'>")
     obstacleX = parseInt($newObstacle.css("left"))
     obstacleY = parseInt($newObstacle.css("top"))
@@ -107,7 +115,7 @@ $start.on("click", function (){
         "left":  randomInt(window.innerWidth) + "px",
         "display": "inline-block",    
     })
-    $skier.append($newObstacle)
+    $slope.append($newObstacle)
     console.log(parseInt($newObstacle.css('left')))
     setInterval(function(){
         $newObstacle.css('top','-=5px')
@@ -119,7 +127,7 @@ $start.on("click", function (){
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 100)
+    }, 50)
     
 })
 
