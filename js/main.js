@@ -17,6 +17,7 @@ Steps to get this work done:
 var $body = $('body')
 var $obstacle = $('.obstacle')
 $obstacle.css('left', window.innerWidth)
+var $skier = $('#skier')
 
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
@@ -33,16 +34,17 @@ $start.on("click", function (){
     var $newObstacle = $('<div>')
     $newObstacle.css({
         "position": "absolute",
-        "top":"window.innerHeight",
+        "left": window.innerWidth,
         "color": "forestgreen",
         "border": "2px solid black",
         "width": "100px",
-        "height": "100px",     
+        "height": "100px", 
+        "display": "inline",    
     })
-    $body.append($newObstacle)
+    $skier.append($newObstacle)
     setInterval(function(){
-        $newObstacle.css('top','-=5px')
-    }, 500)
+        $newObstacle.css('left','-=5px')
+    }, 100)
     
 })
 

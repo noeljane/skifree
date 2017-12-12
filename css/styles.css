@@ -1,5 +1,17 @@
+body {
+    background: white;
+    height: 600px;
+    width: 600px;
+}
 h1 {
     color: cornflowerblue;
+}
+
+#skier {
+    background: purple;
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
 }
 
 .obstacle {
