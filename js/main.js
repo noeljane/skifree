@@ -81,10 +81,9 @@ function collisionCheck (){
     //     $skier.toggle("explode")
     //     console.log("Wipeout!")
     // } 
-     if (parseInt(($newObstacle.css('left')) > skierX) && ($newObstacle.css('right') < skierX)){
-        console.log("You good!")
-    }
-        
+    //  if (parseInt(($newObstacle.css('left')) > skierX) && ($newObstacle.css('right') < skierX)){
+    //     console.log("You good!")
+    // }   
 
 }
 
