@@ -44,6 +44,7 @@ var $body = $('body')
 var $skier = $('#skier')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
+var $turnDown = $('#turnDown')
 
 var $newObstacle
 var obstacleX
@@ -74,19 +75,23 @@ function collisionCheck (){
     var obstacleY = parseInt($newObstacle.css("top"))
     var skierX = parseInt($skier.css("left"))
     var skierY = parseInt($skier.css("top"))
-    // console.log(obstacleX)
-    // console.log(skierX)
-    if ((parseInt($newObstacle.css("top")) === skierY)  || (parseInt($newObstacle.css('left')) === skierX)) {
-        $skier.toggle("explode")
-        console.log("Wipeout!")
+    console.log(obstacleX)
+    console.log(skierX)
+    // if ((obstacleY < skierY)  && (parseInt($newObstacle.css('left')) === skierX)) {
+    //     $skier.toggle("explode")
+    //     console.log("Wipeout!")
+    // } 
+     if (parseInt(($newObstacle.css('left')) > skierX) && ($newObstacle.css('right') < skierX)){
+        console.log("You good!")
     }
+        
 
 }
 
 //Function to create more obstacles
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
-    $newObstacle = $('<div>')
+    $newObstacle = $("<div id='obstacle'>")
     obstacleX = parseInt($newObstacle.css("left"))
     obstacleY = parseInt($newObstacle.css("top"))
     
@@ -94,7 +99,7 @@ $start.on("click", function (){
     var skierY = parseInt($skier.css("top"))
 
     $newObstacle.css({
-        "position": "fixed",
+        "position": "absolute",
         "top": window.innerHeight,
         "color": "forestgreen",
         "border": "2px solid black",
@@ -122,7 +127,7 @@ $start.on("click", function (){
 //Function to make my skier move right
 $turnRight.on('click', function (){
     console.log("Sick carves, brah!")
-    $skier.css('left', '+=50px') 
+    $skier.css('left', '+=10px') 
     console.log($skier.css('left'))
 
 })
@@ -130,8 +135,15 @@ $turnRight.on('click', function (){
 // Function to make my skier move left
 $turnLeft.on('click', function (){
     console.log("A la izquierda broseph!")
-    $skier.css('left', '-=50px')
+    $skier.css('left', '-=10px')
 })
+
+// Function to make my skier move down
+$turnDown.on('click', function (){
+    console.log("Rip it!")
+    $skier.css('top','+=10px')
+})
+
 
 
 
