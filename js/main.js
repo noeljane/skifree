@@ -59,6 +59,9 @@ var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 var $stop = $('#stop')
 
+//ScoreBoard
+var $scoreBoard = $('#scoreboard')
+
 //Global Variables
 var $skier
 var $newObstacle
@@ -70,6 +73,12 @@ var skierY
 //Interval Variables
 var skierInterval
 var sbstacleInterval
+
+//create skier
+$skier = $("<div id='skier'>")
+$slope.append($skier)
+skierX = parseInt($skier.position().left)
+skierY = parseInt($skier.position().top)
 
 
 //Variables to create multiple speeds and obstacles
@@ -109,9 +118,7 @@ function collisionCheck (){
 //Function to start skiing
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
-    //create skier
-    $skier = $("<div id='skier'>")
-    $slope.append($skier)
+    //start skiing
     skierInterval = setInterval(function(){
         console.log("Rip it!")
         $skier.css("top", "+=10px")
@@ -119,7 +126,10 @@ $start.on("click", function (){
         skierY = parseInt($skier.position().top)
         console.log(skierX)
         console.log(skierY)
-    },500)
+        //display score
+        displayScore()
+    },1000)
+
 
     //creates obstacle
     $newObstacle = $("<div id='obstacle'>")
@@ -165,4 +175,14 @@ function stopTheGame (){
     clearInterval(skierInterval)
     clearInterval(obstacleInterval)
 }
+
 $stop.on("click", stopTheGame)
+
+// Function to score the game 
+function displayScore (){
+    skierY = parseInt($skier.position().top)
+    var score = skierY
+    $scoreBoard.text("Distance traveled: " + score)
+
+}
+

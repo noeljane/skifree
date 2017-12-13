@@ -12,6 +12,13 @@ button {
     margin: 10px;
 }
 
+#scoreboard{
+    height:100px;    
+    width: 150px;
+    border: 2px solid black;
+    color: black;
+    display: inline-block;
+}
 #skier {
     background: purple;
     height: 100px;
