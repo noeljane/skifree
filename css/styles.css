@@ -17,7 +17,7 @@ button {
     height: 100px;
     width: 100px;
     border: 2px solid black;
-    position: absolute;
+    position: fixed;
 }
 
 .obstacle {

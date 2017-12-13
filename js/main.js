@@ -42,14 +42,24 @@ Day 2 Afternoon:
 //Variables for 
 var $body = $('body')
 var $slope = $('#slope')
+
+//Buttons
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 var $turnDown = $('#turnDown')
+var $stop = $('#stop')
 
+//Global Variables
 var $skier
 var $newObstacle
 var obstacleX
 var obstacleY
+var skierX 
+var skierY
+
+//Interval Variables
+var skierInterval
+var sbstacleInterval
 
 
 //Variables to create multiple speeds and obstacles
@@ -92,18 +102,19 @@ $start.on("click", function (){
     //create skier
     $skier = $("<div id='skier'>")
     $slope.append($skier)
-    setInterval(function(){
+    skierX = parseInt($skier.css("left"))
+    skierY = parseInt($skier.css("top"))
+    skierInterval = setInterval(function(){
         console.log("Rip it!")
         $skier.css("top", "+=10px")
-    },100)
+        console.log(skierX)
+        console.log(skierY)
+    },1000)
     
     //create obstacle
     $newObstacle = $("<div id='obstacle'>")
     obstacleX = parseInt($newObstacle.css("left"))
     obstacleY = parseInt($newObstacle.css("top"))
-    
-    var skierX = parseInt($skier.css("left"))
-    var skierY = parseInt($skier.css("top"))
 
     $newObstacle.css({
         "position": "absolute",
@@ -117,17 +128,16 @@ $start.on("click", function (){
     })
     $slope.append($newObstacle)
     console.log(parseInt($newObstacle.css('left')))
-    setInterval(function(){
+    obstacleInterval = setInterval(function(){
         $newObstacle.css('top','-=5px')
         console.log(parseInt($newObstacle.css('left')))
-        console.log(skierX)
         collisionCheck()
         if (obstacleY < 0){
             $newObstacle.css("top","800px")
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 50)
+    }, 3000)
     
 })
 
@@ -150,6 +160,14 @@ $turnDown.on('click', function (){
     console.log("Rip it!")
     $skier.css('top','+=10px')
 })
+
+//Function to clear intervals
+$stop.on('click',function(){
+    clearInterval(skierInterval)
+    clearInterval(obstacleInterval)
+})
+
+
 
 
 
