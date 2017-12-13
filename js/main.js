@@ -79,13 +79,30 @@ function randomInt(hi) {
 
 //Function to check for collision
 function collisionCheck (){
-    var obstacleX = parseInt($newObstacle.css("left"))
-    var obstacleY = parseInt($newObstacle.css("top"))
-    var skierX = parseInt($skier.css("left"))
-    var skierY = parseInt($skier.css("top"))
-    console.log(obstacleX)
-    console.log(skierX)
-    if (parseInt($skier.offset()) === parseInt($newObstacle.offset())) {
+    //COLLSION DETECTION FORMULA
+    // var rect1 = {x: 5, y: 5, width: 50, height: 50}
+    // var rect2 = {x: 20, y: 10, width: 10, height: 10}
+    
+    // if (rect1.x < rect2.x + rect2.width &&
+    //    rect1.x + rect1.width > rect2.x &&
+    //    rect1.y < rect2.y + rect2.height &&
+    //    rect1.height + rect1.y > rect2.y) {
+    //     // collision detected!
+    // }
+    
+    // // filling in the values =>
+    
+    // if (5 < 30 &&
+    //     55 > 20 &&
+    //     5 < 20 &&
+    //     55 > 10) {
+    //     // collision detected!
+    // }
+    skierX = parseInt($skier.position().left)
+    skierY = parseInt($skier.position().top)
+    obstacleX = parseInt($newObstacle.position().left)
+    obstacleY = parseInt($newObstacle.position().top)
+    if (parseInt($skier.position()) === parseInt($newObstacle.position())) {
         $skier.toggle("explode")
         console.log("Wipeout!")
     } 
@@ -105,13 +122,14 @@ $start.on("click", function (){
     skierInterval = setInterval(function(){
         console.log("Rip it!")
         $skier.css("top", "+=10px")
-        console.log($skier.offset())
+        skierX = parseInt($skier.position().left)
+        skierY = parseInt($skier.position().top)
+        console.log(skierX)
+        console.log(skierY)
     },1000)
 
     //creates obstacle
     $newObstacle = $("<div id='obstacle'>")
-    obstacleX = parseInt($newObstacle.css("left"))
-    obstacleY = parseInt($newObstacle.css("top"))
     $newObstacle.css({
         "position": "absolute",
         "top": window.innerHeight,
@@ -125,14 +143,14 @@ $start.on("click", function (){
     $slope.append($newObstacle)
     obstacleInterval = setInterval(function(){
         $newObstacle.css('top','-=5px')
-        console.log($newObstacle.offset())
+        // console.log($newObstacle.offset())
         collisionCheck()
         if (parseInt($newObstacle.css("top")) < 0){
             $newObstacle.css("top","800px")
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 10)
+    }, 1000)
     
     
 })
@@ -156,8 +174,7 @@ $stop.on('click',function(){
     clearInterval(obstacleInterval)
 })
 
-
-
+// Collision Detection help from TA
 
 
 
