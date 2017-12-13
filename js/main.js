@@ -46,8 +46,8 @@ var $slope = $('#slope')
 //Buttons
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
-var $turnDown = $('#turnDown')
 var $stop = $('#stop')
+var $startObstacles = $('#obstacles begin')
 
 //Global Variables
 var $skier
@@ -85,7 +85,7 @@ function collisionCheck (){
     var skierY = parseInt($skier.css("top"))
     console.log(obstacleX)
     console.log(skierX)
-    if (obstacleY < skierY) {
+    if (parseInt($skier.offset()) === parseInt($newObstacle.offset())) {
         $skier.toggle("explode")
         console.log("Wipeout!")
     } 
@@ -96,26 +96,22 @@ function collisionCheck (){
 }
 
 
-//Function to create more obstacles
+//Function to start skiing
 $start.on("click", function (){
     console.log("You clicked start! Gnarly, bro!")
     //create skier
     $skier = $("<div id='skier'>")
     $slope.append($skier)
-    skierX = parseInt($skier.css("left"))
-    skierY = parseInt($skier.css("top"))
     skierInterval = setInterval(function(){
         console.log("Rip it!")
         $skier.css("top", "+=10px")
-        console.log(skierX)
-        console.log(skierY)
+        console.log($skier.offset())
     },1000)
-    
-    //create obstacle
+
+    //creates obstacle
     $newObstacle = $("<div id='obstacle'>")
     obstacleX = parseInt($newObstacle.css("left"))
     obstacleY = parseInt($newObstacle.css("top"))
-
     $newObstacle.css({
         "position": "absolute",
         "top": window.innerHeight,
@@ -127,17 +123,17 @@ $start.on("click", function (){
         "display": "inline-block",    
     })
     $slope.append($newObstacle)
-    console.log(parseInt($newObstacle.css('left')))
     obstacleInterval = setInterval(function(){
         $newObstacle.css('top','-=5px')
-        console.log(parseInt($newObstacle.css('left')))
+        console.log($newObstacle.offset())
         collisionCheck()
-        if (obstacleY < 0){
+        if (parseInt($newObstacle.css("top")) < 0){
             $newObstacle.css("top","800px")
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 3000)
+    }, 10)
+    
     
 })
 
@@ -146,7 +142,6 @@ $turnRight.on('click', function (){
     console.log("Sick carves, brah!")
     $skier.css('left', '+=10px') 
     console.log($skier.css('left'))
-
 })
 
 // Function to make my skier move left
@@ -155,17 +150,12 @@ $turnLeft.on('click', function (){
     $skier.css('left', '-=10px')
 })
 
-// Function to make my skier move down
-$turnDown.on('click', function (){
-    console.log("Rip it!")
-    $skier.css('top','+=10px')
-})
-
 //Function to clear intervals
 $stop.on('click',function(){
     clearInterval(skierInterval)
     clearInterval(obstacleInterval)
 })
+
 
 
 
