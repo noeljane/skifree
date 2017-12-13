@@ -82,14 +82,28 @@ var $start = $('#start')
 var $scoreBoard = $('#scoreboard')
 
 //Global Variables
+var players = [
+    {name: "Noel",
+    score: 0},
+    {name: "Chuck",
+    score: 0}
+]
+var game = {
+    currentPlayer: players[0]
+}
+
 var $skier
 var $newObstacle
 var obstacleX
 var obstacleY
-var skierX 
 var skierY
 var score
 
+var skier = {
+    x: 0,
+    y: 0,
+    updateSpeed: 500
+}
 //Interval Variables
 var skierInterval
 var sbstacleInterval
@@ -121,7 +135,8 @@ function createPlayer (evt){
 function createSkier (){
     $skier = $("<div id='skier'>")
     $slope.append($skier)
-    skierX = parseInt($skier.position().left)
+    $skier.css('left', window.innerWidth/2 + 'px') 
+    skier.x = parseInt($skier.position().left)
     skierY = parseInt($skier.position().top)
 
 }
@@ -135,15 +150,25 @@ function startSkiing () {
     skierInterval = setInterval(function(){
         console.log("Rip it!")
         $skier.css("top", "+=5px")
-        skierX = parseInt($skier.position().left)
+        skier.x = parseInt($skier.position().left)
         skierY = parseInt($skier.position().top)
-        console.log(skierX)
+        console.log(skier.x)
         console.log(skierY)
         //display score
         displayScore()
-    },500)
+    },skier.updateSpeed)
     createObstacle()
 }
+
+//Event listener for the keyboard
+$body.on('keydown',function (evt){
+    console.log(evt)
+    if(evt.which === 37){
+        $skier.css('left', '-=10px')
+    } else if (evt.which === 39){
+        $skier.css('left', '+=10px') 
+    }
+})
 
 //Function to make my skier move right
 $turnRight.on('click', function (){
@@ -186,14 +211,14 @@ function createObstacle (){
              //calculate a new x for the obstacle
              $newObstacle.css("left",randomInt(window.innerWidth + "px"))
          }
-     }, 1000)
+     }, 50)
 } 
 
 
 
 //Function to check for collision
 function collisionCheck (){
-    skierX = parseInt($skier.position().left)
+    skier.x = parseInt($skier.position().left)
     skierY = parseInt($skier.position().top)
     obstacleX = parseInt($newObstacle.position().left)
     obstacleY = parseInt($newObstacle.position().top)
@@ -202,7 +227,7 @@ function collisionCheck (){
     skierHeight = 10
     obstacleHeight = 10
 
-    if((skierX < obstacleX + obstacleWidth) && (skierX + skierWidth > obstacleX) && 
+    if((skier.x < obstacleX + obstacleWidth) && (skier.x + skierWidth > obstacleX) && 
     (skierY < obstacleY + obstacleHeight) && 
     (skierHeight + skierY > obstacleY)){
         $skier.toggle("explode")
@@ -249,6 +274,7 @@ function compareScores (){
         console.log ("Player 2 wins!")
     } else {
         console.log("You fucked something up or Player 2 needs to play still")
+        game.currentPlayer = players[1]
     }
     
 }
