@@ -30,12 +30,23 @@ Day 2
 4. Make the skier jump different directions to avoid collision. x
 
 Day 2 Afternoon: 
-1. Figure out how to check x coordinates 
+1. Figure out how to check x coordinates x
 2. Clean up code
     -make more things happen programmatically
     -make code more DRY and easy to read
 
+Day 3
+1. Add Scoreboard 
+2. Add player 2 capacity
+3. Make more obstacles
+4. Clean up code whereever possible and make it more programmatic
+5. Make it possible to move skier with the left and right keys
+6. Make it beautiful  
+
+
 */
+
+
 
 // Variables
 // ////////////////////////////////////////////////////////////////////
@@ -47,7 +58,6 @@ var $slope = $('#slope')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 var $stop = $('#stop')
-var $startObstacles = $('#obstacles begin')
 
 //Global Variables
 var $skier
@@ -79,39 +89,22 @@ function randomInt(hi) {
 
 //Function to check for collision
 function collisionCheck (){
-    //COLLSION DETECTION FORMULA
-    // var rect1 = {x: 5, y: 5, width: 50, height: 50}
-    // var rect2 = {x: 20, y: 10, width: 10, height: 10}
-    
-    // if (rect1.x < rect2.x + rect2.width &&
-    //    rect1.x + rect1.width > rect2.x &&
-    //    rect1.y < rect2.y + rect2.height &&
-    //    rect1.height + rect1.y > rect2.y) {
-    //     // collision detected!
-    // }
-    
-    // // filling in the values =>
-    
-    // if (5 < 30 &&
-    //     55 > 20 &&
-    //     5 < 20 &&
-    //     55 > 10) {
-    //     // collision detected!
-    // }
     skierX = parseInt($skier.position().left)
     skierY = parseInt($skier.position().top)
     obstacleX = parseInt($newObstacle.position().left)
     obstacleY = parseInt($newObstacle.position().top)
-    if (parseInt($skier.position()) === parseInt($newObstacle.position())) {
+    skierWidth = 100
+    obstacleWidth = 100
+    skierHeight = 100
+    obstacleHeight = 100
+
+    if((skierX < obstacleX + obstacleWidth) && (skierX + skierWidth > obstacleX) && 
+    (skierY < obstacleY + obstacleHeight) && 
+    (skierHeight + skierY > obstacleY)){
         $skier.toggle("explode")
         console.log("Wipeout!")
     } 
-    //  if (parseInt(($newObstacle.css('left')) > skierX) && ($newObstacle.css('right') < skierX)){
-    //     console.log("You good!")
-    // }   
-
 }
-
 
 //Function to start skiing
 $start.on("click", function (){
@@ -126,7 +119,7 @@ $start.on("click", function (){
         skierY = parseInt($skier.position().top)
         console.log(skierX)
         console.log(skierY)
-    },1000)
+    },500)
 
     //creates obstacle
     $newObstacle = $("<div id='obstacle'>")
@@ -143,7 +136,6 @@ $start.on("click", function (){
     $slope.append($newObstacle)
     obstacleInterval = setInterval(function(){
         $newObstacle.css('top','-=5px')
-        // console.log($newObstacle.offset())
         collisionCheck()
         if (parseInt($newObstacle.css("top")) < 0){
             $newObstacle.css("top","800px")
@@ -168,15 +160,9 @@ $turnLeft.on('click', function (){
     $skier.css('left', '-=10px')
 })
 
-//Function to clear intervals
-$stop.on('click',function(){
+// Function to clear intervals
+function stopTheGame (){
     clearInterval(skierInterval)
     clearInterval(obstacleInterval)
-})
-
-// Collision Detection help from TA
-
-
-
-
-
+}
+$stop.on("click", stopTheGame)
