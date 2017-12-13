@@ -147,6 +147,7 @@ function collisionCheck (){
         console.log("Wipeout!")
         stopTheGame()
         playerLost()
+
     } 
 }
 
@@ -163,6 +164,11 @@ function startSkiing () {
         //display score
         displayScore()
     },1000)
+    createObstacle()
+}
+
+//Function to create obstacle
+function createObstacle (){
      //creates obstacle
      $newObstacle = $("<div id='obstacle'>")
      $newObstacle.css({
@@ -185,8 +191,8 @@ function startSkiing () {
              $newObstacle.css("left",randomInt(window.innerWidth + "px"))
          }
      }, 1000)
-
 }
+
 
 //Event Listeners
 $start.on("click", startSkiing)
@@ -227,20 +233,21 @@ function playerLost (){
     score = skierY
     console.log("Player lost!")
     $scoreBoard.text("You crashed! Your final score is " + score)
-    }
-
-function playGameAndScore (){
-
+    var playerFinalScore = $('<li>')
+    playerFinalScore.text(score)
+    $list.append(playerFinalScore)
 }
+
+
 
 
 /* 
 Logic of the Game: 
 
-Player 1 puts in name
-Player 1 plays
-Player 1 crashes
-Player 1 gets score
+Player 1 puts in name x
+Player 1 plays x
+Player 1 crashes x
+Player 1 gets score x
 
 Prompt Player 2 to play Game
 Player 2 plays
