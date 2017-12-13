@@ -36,14 +36,28 @@ Day 2 Afternoon:
     -make code more DRY and easy to read
 
 Day 3
-1. Add Scoreboard 
+1. Add Scoreboard x
 2. Add player 2 capacity
-3. Make more obstacles
-4. Clean up code whereever possible and make it more programmatic
-5. Make it possible to move skier with the left and right keys
-6. Make it beautiful  
+    -create form for Player 1 entry
+    -make the game stop when you crash
+    -change the player when you crash
+    -prompt form for Player 2 entry
+    -make the game stop when player 2 crashes 
+    -compare scores between player 1 and player 2
+    -declare a winner
+    -add a button to play again
+3. Make the window scroll as you play 
+4. Make more obstacles
+5. Clean up code whereever possible and make it more programmatic
+    
+6. Make it possible to move skier with the left and right keys
+7. Make it beautiful  
+8. Add an ogre??? 
 
-
+Punch List: 
+    -Make scoreboard start from zero or make more sense
+    -make skier go faster
+    -expand the board so that skier can go farther
 */
 
 
@@ -102,10 +116,10 @@ function collisionCheck (){
     skierY = parseInt($skier.position().top)
     obstacleX = parseInt($newObstacle.position().left)
     obstacleY = parseInt($newObstacle.position().top)
-    skierWidth = 100
-    obstacleWidth = 100
-    skierHeight = 100
-    obstacleHeight = 100
+    skierWidth = 10
+    obstacleWidth = 10
+    skierHeight = 10
+    obstacleHeight = 10
 
     if((skierX < obstacleX + obstacleWidth) && (skierX + skierWidth > obstacleX) && 
     (skierY < obstacleY + obstacleHeight) && 
@@ -121,14 +135,14 @@ $start.on("click", function (){
     //start skiing
     skierInterval = setInterval(function(){
         console.log("Rip it!")
-        $skier.css("top", "+=10px")
+        $skier.css("top", "+=5px")
         skierX = parseInt($skier.position().left)
         skierY = parseInt($skier.position().top)
         console.log(skierX)
         console.log(skierY)
         //display score
         displayScore()
-    },1000)
+    },100)
 
 
     //creates obstacle
@@ -138,8 +152,8 @@ $start.on("click", function (){
         "top": window.innerHeight,
         "color": "forestgreen",
         "border": "2px solid black",
-        "width": "100px",
-        "height": "100px",
+        "width": "10px",
+        "height": "10px",
         "left":  randomInt(window.innerWidth) + "px",
         "display": "inline-block",    
     })
@@ -152,7 +166,7 @@ $start.on("click", function (){
             //calculate a new x for the obstacle
             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
         }
-    }, 1000)
+    }, 100)
     
     
 })
