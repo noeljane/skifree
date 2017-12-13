@@ -10,9 +10,15 @@ button {
     margin: 10px;
 }
 
+ul {
+    color: purple;
+    list-style-type: none;
+}
+
 #scoreboard{
-    height:100px;    
-    width: 150px;
+    height:25px;    
+    width: 100px;
+    font-size: 18px;
     border: 2px solid black;
     color: black;
     display: inline-block;

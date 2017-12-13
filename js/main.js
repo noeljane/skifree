@@ -64,7 +64,7 @@ Punch List:
 
 // Variables
 // ////////////////////////////////////////////////////////////////////
-//Variables for 
+
 var $body = $('body')
 var $slope = $('#slope')
 
@@ -72,6 +72,9 @@ var $slope = $('#slope')
 var $turnRight = $('#turnRight')
 var $turnLeft = $('#turnLeft')
 var $stop = $('#stop')
+
+//Variable for start button
+var $start = $('#start')
 
 //ScoreBoard
 var $scoreBoard = $('#scoreboard')
@@ -88,6 +91,36 @@ var skierY
 var skierInterval
 var sbstacleInterval
 
+//Variables to create multiple speeds and obstacles
+var obstacleNames = ["tree","rock","ogre"]
+var colors = ["green","black","grey"]
+var speeds = [1000, 500, 100]
+
+//Form Submission
+var $signupForm = $('#signup-form')
+var $nameField = $('#name')
+var $list = $('#playerList')
+
+$signupForm.on('submit',function(evt){
+    evt.preventDefault()
+    var $newItem = $('<li>')
+    $newItem.text($nameField.val())
+    $list.append($newItem)
+
+})
+// var $form = $('#playerId')
+// var $name = $('#name')
+// var $playerName = $('#playerName')
+// var $submit = $('#submit')
+
+// $submit.on("submit", function(evt){
+//     evt.preventDefault()
+//     var $newPlayer = $('<li>')
+//     $newPlayer.text($name.val())
+//     $playerName.append($newPlayer)
+
+// })
+
 //create skier
 $skier = $("<div id='skier'>")
 $slope.append($skier)
@@ -95,13 +128,8 @@ skierX = parseInt($skier.position().left)
 skierY = parseInt($skier.position().top)
 
 
-//Variables to create multiple speeds and obstacles
-var obstacleNames = ["tree","rock","ogre"]
-var colors = ["green","black","grey"]
-var speeds = [1000, 500, 100]
 
-//Variable for start button
-var $start = $('#start')
+
 
 //Functions
 //////////////////////////////////////////////////////////////////////////
