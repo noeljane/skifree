@@ -104,55 +104,33 @@ var $signupForm = $('#signup-form')
 var $nameField = $('#name')
 var $list = $('#playerList')
 
-$signupForm.on('submit',function(evt){
-    evt.preventDefault()
-    var $newItem = $('<li>')
-    $newItem.text($nameField.val())
-    $list.append($newItem)
-
-})
-
-//create skier
-$skier = $("<div id='skier'>")
-$slope.append($skier)
-skierX = parseInt($skier.position().left)
-skierY = parseInt($skier.position().top)
-
-
+$signupForm.on('submit',createPlayer)
 
 
 
 //Functions
 //////////////////////////////////////////////////////////////////////////
 
-function randomInt(hi) {
-    return Math.floor(Math.random()* hi)
+function createPlayer (evt){
+    evt.preventDefault()
+    var $newItem = $('<li>')
+    $newItem.text($nameField.val())
+    $list.append($newItem)
 }
 
-//Function to check for collision
-function collisionCheck (){
+function createSkier (){
+    $skier = $("<div id='skier'>")
+    $slope.append($skier)
     skierX = parseInt($skier.position().left)
     skierY = parseInt($skier.position().top)
-    obstacleX = parseInt($newObstacle.position().left)
-    obstacleY = parseInt($newObstacle.position().top)
-    skierWidth = 10
-    obstacleWidth = 10
-    skierHeight = 10
-    obstacleHeight = 10
 
-    if((skierX < obstacleX + obstacleWidth) && (skierX + skierWidth > obstacleX) && 
-    (skierY < obstacleY + obstacleHeight) && 
-    (skierHeight + skierY > obstacleY)){
-        $skier.toggle("explode")
-        console.log("Wipeout!")
-        stopTheGame()
-        playerLost()
-
-    } 
 }
+
+
 
 //Function to start skiing
 function startSkiing () {
+    createSkier()
     console.log("You clicked start! Gnarly, bro!")
     skierInterval = setInterval(function(){
         console.log("Rip it!")
@@ -163,8 +141,26 @@ function startSkiing () {
         console.log(skierY)
         //display score
         displayScore()
-    },1000)
+    },500)
     createObstacle()
+}
+
+//Function to make my skier move right
+$turnRight.on('click', function (){
+    console.log("Sick carves, brah!")
+    $skier.css('left', '+=10px') 
+    console.log($skier.css('left'))
+})
+
+// Function to make my skier move left
+$turnLeft.on('click', function (){
+    console.log("A la izquierda broseph!")
+    $skier.css('left', '-=10px')
+})
+
+//Function for Random Number
+function randomInt(hi) {
+    return Math.floor(Math.random()* hi)
 }
 
 //Function to create obstacle
@@ -191,33 +187,37 @@ function createObstacle (){
              $newObstacle.css("left",randomInt(window.innerWidth + "px"))
          }
      }, 1000)
+} 
+
+
+
+//Function to check for collision
+function collisionCheck (){
+    skierX = parseInt($skier.position().left)
+    skierY = parseInt($skier.position().top)
+    obstacleX = parseInt($newObstacle.position().left)
+    obstacleY = parseInt($newObstacle.position().top)
+    skierWidth = 10
+    obstacleWidth = 10
+    skierHeight = 10
+    obstacleHeight = 10
+
+    if((skierX < obstacleX + obstacleWidth) && (skierX + skierWidth > obstacleX) && 
+    (skierY < obstacleY + obstacleHeight) && 
+    (skierHeight + skierY > obstacleY)){
+        $skier.toggle("explode")
+        console.log("Wipeout!")
+        stopTheGame()
+        playerLost()
+        compareScores()
+    } 
 }
-
-
-//Event Listeners
-$start.on("click", startSkiing)
-    
-
-//Function to make my skier move right
-$turnRight.on('click', function (){
-    console.log("Sick carves, brah!")
-    $skier.css('left', '+=10px') 
-    console.log($skier.css('left'))
-})
-
-// Function to make my skier move left
-$turnLeft.on('click', function (){
-    console.log("A la izquierda broseph!")
-    $skier.css('left', '-=10px')
-})
 
 // Function to clear intervals
 function stopTheGame (){
     clearInterval(skierInterval)
     clearInterval(obstacleInterval)
 }
-
-$stop.on("click", stopTheGame)
 
 // Function to score the game 
 function displayScore (){
@@ -237,6 +237,36 @@ function playerLost (){
     playerFinalScore.text(score)
     $list.append(playerFinalScore)
 }
+
+//Function to compare scores
+var $listItem = $('li')
+function compareScores (){
+    player1score = parseInt($listItem.eq(1).text())
+    player2score = parseInt($listItem.eq(3).text())
+    if(player1score > player2score) {
+        console.log("Player 1 wins.")
+    } else if (player2score > player1score){
+        console.log ("Player 2 wins!")
+    } else {
+        console.log("You fucked something up or Player 2 needs to play still")
+    }
+    
+}
+
+//Event Listeners
+$start.on("click", startSkiing)
+$stop.on("click", stopTheGame)
+
+// Player 1 plays 
+function playerPlays (){
+    createPlayer(evt)
+    createSkier()
+    startSkiing()
+    collisionCheck()
+    console.log("Play complete")
+}
+
+// 
 
 
 
@@ -259,3 +289,7 @@ Declare winner
 
 Reset the whole game
 */
+
+// Questions for Teacher
+    // how to tell the game that there can only be 2 players and compare scores
+    // how to use arrow keys
