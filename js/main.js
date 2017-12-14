@@ -52,7 +52,7 @@ var players = [
     score: 0}
 ]
 var game = {
-    currentPlayer: players[0]
+    currentPlayer: 0
 }
 
 var $skier
@@ -95,21 +95,30 @@ $signupForm.on('submit',createPlayer)
 
 function createPlayer (evt){
     evt.preventDefault()
+    //make a new player object and add it to the array
+    var newPlayer = {
+        name: $nameField.val(),
+        score: 0
+    }
+    players.push(newPlayer)
+    addPlayerToList()
+
+}
+
+function addPlayerToList (){
     var $newItem = $('<li>')
     $newItem.text($nameField.val())
     $list.append($newItem)
 }
 
 function createSkier (){
-    $skier = $("<div id='skier'>")
+    $skier = $("<div class='slopeElement' id='skier'>")
     $slope.append($skier)
     $skier.css('left', window.innerWidth/2 + 'px') 
     skier.x = parseInt($skier.position().left)
     skier.y = parseInt($skier.position().top)
 
 }
-
-
 
 //Function to start skiing
 function startSkiing () {
@@ -127,7 +136,6 @@ function startSkiing () {
 
 //Event listener for the keyboard
 $body.on('keydown',function (evt){
-    console.log(evt)
     if(evt.which === 37){
         $skier.css('left', '-=10px')
     } else if (evt.which === 39){
@@ -143,7 +151,7 @@ function randomInt(hi) {
 //Function to create obstacle
 function createObstacle (){
      //creates obstacle
-     $newObstacle = $("<div id='obstacle'>")
+     $newObstacle = $("<div class='slopeElement' id='obstacle'>")
      $newObstacle.css({
          "top": window.innerHeight,
          "left":  randomInt(window.innerWidth) + "px",  
@@ -180,14 +188,31 @@ function collisionCheck (){
         console.log("Wipeout!")
         stopTheGame()
         playerLost()
-        compareScores()
+        // 2 possibilities
+            // 1. person who just finished the game is NOT the last player
+                    // if not, add 1 to current player and set score to zero
+            // 2. person who finished the game is the last player
+                    // if last player, then declare scores and compare a winner
+        if (game.currentPlayer < (players.length -1)) {
+            resetTheGame()
+            game.currentPlayer++
+            score = 0 
+        } else {
+            compareScores()
+        }
     } 
 }
+// Function to reset the game
 
-// Function to clear intervals
-function stopTheGame (){
+function resetTheGame (){
     clearInterval(skierInterval)
     clearInterval(obstacleInterval)
+    $slope.children().remove()
+    // get of the skier
+    // get rid of the old obstacle
+    //make a new skier
+    //start the game again 
+
 }
 
 // Function to score the game 
@@ -201,45 +226,27 @@ function displayScore (){
 // Function to stop the game when there is a crash
 function playerLost (){
     skier.y = parseInt($skier.position().top)
-    score = skier.y
     console.log("Player lost!")
+    players[game.currentPlayer].score = score
     $scoreBoard.text("You crashed! Your final score is " + score)
     var playerFinalScore = $('<li>')
     playerFinalScore.text(score)
     $list.append(playerFinalScore)
 }
 
-//Function to compare scores
+// Function to compare scores
 var $listItem = $('li')
 function compareScores (){
-    player1score = parseInt($listItem.eq(1).text())
-    player2score = parseInt($listItem.eq(3).text())
-    if(player1score > player2score) {
-        console.log("Player 1 wins.")
-    } else if (player2score > player1score){
-        console.log ("Player 2 wins!")
-    } else {
-        console.log("Player 2 needs to play still")
-        game.currentPlayer = players[1]
-    }
-    
+    //find the highest score in the players array. 
+    // make an announcement where we say the name of the player with highest score wins
+    var winningPlayer = players.reduce(function(prev, current) {
+        return (prev.score > current.score) ? prev : current    
+    })
+    $scoreboard.text("Winner:" + winningPlayer)
 }
-
 //Event Listeners
 $start.on("click", startSkiing)
-$stop.on("click", stopTheGame)
-
-// Player 1 plays 
-// function playerPlays (){
-//     createPlayer(evt)
-//     createSkier()
-//     startSkiing()
-//     collisionCheck()
-//     console.log("Play complete")
-// }
-
-// 
-
+$stop.on("click", resetTheGame)
 
 
 
@@ -265,3 +272,7 @@ Reset the whole game
 // Questions for Teacher
     // how to tell the game that there can only be 2 players and compare scores
     // how to use arrow keys
+
+
+// The Obstacles Hint from Zeke
+// the obstacles should be in an array somewhere (probably as objects)
