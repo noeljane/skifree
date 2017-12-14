@@ -36,7 +36,6 @@ ul {
 
 #obstacle{
     position: absolute;
-    background: forestgreen;
     border: 2px solid black;
     width: 10px;
     height: 10px;

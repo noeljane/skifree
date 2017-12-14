@@ -1,39 +1,25 @@
 /*
-Day 3
-1. Add Scoreboard x
-2. Add player 2 capacity
-    -create form for Player 1 entry x
-    -make the game stop when you crash x
-    -change the player when you crash
-    -prompt form for Player 2 entry
-    -make the game stop when player 2 crashes 
-    -compare scores between player 1 and player 2
-    -declare a winner
-    -add a button to play again
-3. Make the window scroll as you play or just keep the player still  
-4. Make more obstacles
-5. Clean up code whereever possible and make it more programmatic
-    -see Punch List
-6. Make it possible to move skier with the left and right keys x
-7. Make it beautiful  
-8. Add an ogre??? 
-
-Punch List: 
-    -Make scoreboard start from zero or make more sense
-    -make skier go faster
-    -expand the board so that skier can go farther
-    -hide form when you are playing game
-    -
-
 Day 4 
 -Game does not reset automatically x
 -Need to set up more obstacles
 -set up scroll???? or just have objects moving?
     -if no scroll, rebuild scoring
 - Have a way to refresh the scoreboard/players (?)
-    -if not, get rid of form submission   
+    -if not, get rid of form submission
+- Add a button to play again    
 -Clean up game
 -Make it look pretty
+
+
+Punch List: 
+    -Make scoreboard start from zero or make more sense
+    -make skier go faster
+    -expand the board so that skier can go farther
+    -hide form when you are playing game
+    -fix the randomization for the obstacles
+    -have obstacles be hidden when they go above the skier
+        -or hide submission form and scoreboard
+        -or float the scoreboard so obstacles go underneath
 
 */
 
@@ -81,20 +67,26 @@ var skier = {
 
 var obstacles = [{
     name: "tree",
+    background:"forestgreen",
     x:0,
     y:0,
-    updateSpeed:100,
-}]
+}, {
+    name: "rock",
+    background: "black",
+    x:0,
+    y:0, 
+}, {
+    name: "ogre",
+    background: "grey",
+    x:0,
+    y:0,
+}
+]
 
 
 //Interval Variables
 var skierInterval
 var obstacleInterval
-
-//Variables to create multiple speeds and obstacles
-var obstacleNames = ["tree","rock","ogre"]
-var colors = ["green","black","grey"]
-var speeds = [1000, 500, 100]
 
 //Form Submission
 var $signupForm = $('#signup-form')
@@ -147,6 +139,7 @@ function startSkiing () {
         displayScore()
     },skier.updateSpeed)
     createObstacle()
+    $('window').scroll()
 }
 
 //Event listener for the keyboard
@@ -155,6 +148,11 @@ $body.on('keydown',function (evt){
         $skier.css('left', '-=10px')
     } else if (evt.which === 39){
         $skier.css('left', '+=10px') 
+    } else if (evt.which === 40){
+        $skier.css('top', '+=10px')
+        $('body').animate({
+            scrollTop: $skier.offset().top
+        }, 2000)
     }
 })
 
@@ -166,22 +164,28 @@ function randomInt(hi) {
 //Function to create obstacle
 function createObstacle (){
      //creates obstacle
-     $newObstacle = $("<div class='slopeElement' id='obstacle'>")
-     $newObstacle.css({
-         "top": window.innerHeight,
-         "left":  randomInt(window.innerWidth) + "px",  
-        // "background:" obstacles[i].background
-     })
-     $slope.append($newObstacle)
-     obstacleInterval = setInterval(function(){
-         $newObstacle.css('top','-=5px')
-         collisionCheck()
-         if (parseInt($newObstacle.css("top")) < 0){
-             $newObstacle.css("top","800px")
-             //calculate a new x for the obstacle
-             $newObstacle.css("left",randomInt(window.innerWidth + "px"))
-         }
-     }, 50)
+        $newObstacle = $("<div class='slopeElement' id='obstacle'>")
+        $newObstacle.css({
+            "top": window.innerHeight,
+            "left":  randomInt(window.innerWidth) + "px",  
+            "background": "forestgreen",
+        })
+        $slope.append($newObstacle)
+        obstacleInterval = setInterval(function(){
+            $newObstacle.css('top','-=5px')
+            collisionCheck()
+            if (parseInt($newObstacle.css("top")) < 0){
+                $newObstacle.css("top","800px")
+                //calculate a new x for the obstacle
+                $newObstacle.css("left",randomInt(window.innerWidth + "px"))
+            }
+        }, 50)
+
+    /* Pseudo code for creating loop
+        
+    
+    */
+     
 } 
 
 
@@ -220,9 +224,9 @@ function collisionCheck (){
 // Function to reset the game
 
 function resetTheGame (){
-    clearInterval(skierInterval)
-    clearInterval(obstacleInterval)
-    $slope.children().remove()
+        clearInterval(skierInterval)
+        clearInterval(obstacleInterval)
+        $slope.children().remove()  
     // get of the skier
     // get rid of the old obstacle
     //make a new skier
@@ -265,30 +269,6 @@ function compareScores (){
 $start.on("click", startSkiing)
 $stop.on("click", resetTheGame)
 
-
-
-/* 
-Logic of the Game: 
-
-Player 1 puts in name x
-Player 1 plays x
-Player 1 crashes x
-Player 1 gets score x
-
-Prompt Player 2 to play Game
-Player 2 plays
-Player 2 crashes 
-Player 2 gets score
-
-Compare player 1 score to player 2 score
-Declare winner
-
-Reset the whole game
-*/
-
-// Questions for Teacher
-    // how to tell the game that there can only be 2 players and compare scores
-    // how to use arrow keys
 
 
 // The Obstacles Hint from Zeke
