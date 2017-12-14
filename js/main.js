@@ -88,6 +88,8 @@ var obstacles = [{
 //Interval Variables
 var skierInterval
 var obstacleInterval
+var obstacleIntervals = []
+
 
 //Form Submission
 var $signupForm = $('#signup-form')
@@ -141,8 +143,12 @@ function startSkiing () {
         //display score
         displayScore()
     },skier.updateSpeed)
-    createObstacle()
+    generateObstacles()
     $('window').scroll()
+}
+
+function generateObstacles() {
+    generateObstacleInterval = setInterval(createObstacle, 3000)
 }
 
 //Event listener for the keyboard
@@ -167,38 +173,33 @@ function randomInt(hi) {
 //Function to create obstacle
 function createObstacle (){
      //creates obstacle
-        $newObstacle = $("<div class='slopeElement' id='obstacle'>")
+        var $newObstacle = $("<div>").addClass('slopeElement')
         $newObstacle.css({
             "top": window.innerHeight,
             "left":  randomInt(window.innerWidth) + "px",  
             "background": "forestgreen",
         })
         $slope.append($newObstacle)
-        obstacleInterval = setInterval(function(){
+        obstacleIntervals.push(setInterval(function(){
             $newObstacle.css('top','-=5px')
-            collisionCheck()
+            collisionCheck($newObstacle)
             if (parseInt($newObstacle.css("top")) < 0){
                 $newObstacle.css("top","800px")
                 //calculate a new x for the obstacle
-                $newObstacle.css("left",randomInt(window.innerWidth + "px"))
+                $newObstacle.css("left", randomInt(window.innerWidth))
             }
-        }, 50)
-
-    /* Pseudo code for creating loop
-        
-    
-    */
-     
+        }, 50))
 } 
 
 
 
+
 //Function to check for collision
-function collisionCheck (){
+function collisionCheck(obstacle){
     skier.x = parseInt($skier.position().left)
     skier.y = parseInt($skier.position().top)
-    obstacleX = parseInt($newObstacle.position().left)
-    obstacleY = parseInt($newObstacle.position().top)
+    obstacleX = parseInt(obstacle.position().left)
+    obstacleY = parseInt(obstacle.position().top)
     skierWidth = 10
     obstacleWidth = 10
     skierHeight = 10
@@ -211,6 +212,12 @@ function collisionCheck (){
         console.log("Wipeout!")
         resetTheGame()
         playerLost()
+        
+        obstacleIntervals.forEach(function(intervalId) {
+            clearInterval(intervalId)
+        })
+        obstacleIntervals = []
+
         // 2 possibilities
             // 1. person who just finished the game is NOT the last player
                     // if not, add 1 to current player and set score to zero
@@ -229,6 +236,8 @@ function collisionCheck (){
 function resetTheGame (){
         clearInterval(skierInterval)
         clearInterval(obstacleInterval)
+        clearInterval(generateObstacleInterval)
+
         $slope.children().remove()  
     // get of the skier
     // get rid of the old obstacle
