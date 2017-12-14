@@ -20,6 +20,7 @@ Punch List:
     -have obstacles be hidden when they go above the skier
         -or hide submission form and scoreboard
         -or float the scoreboard so obstacles go underneath
+    -get rid of players in the array and add explicit instructions
 
 */
 
@@ -130,11 +131,13 @@ function createSkier (){
 //Function to start skiing
 function startSkiing () {
     createSkier()
+    score = 0
     console.log("You clicked start! Gnarly, bro!")
     skierInterval = setInterval(function(){
-        $skier.css("top", "+=5px")
+        //$skier.css("top", "+=5px")
         skier.x = parseInt($skier.position().left)
         skier.y = parseInt($skier.position().top)
+        score += 5
         //display score
         displayScore()
     },skier.updateSpeed)
@@ -237,7 +240,6 @@ function resetTheGame (){
 // Function to score the game 
 function displayScore (){
     skier.y = parseInt($skier.position().top)
-    score = skier.y
     $scoreBoard.text("Distance traveled: " + score)
 
 }
