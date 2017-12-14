@@ -24,6 +24,12 @@ Punch List:
     -expand the board so that skier can go farther
     -hide form when you are playing game
     -
+
+Day 4 
+-Game does not reset automatically
+-Need to set up more obstacles
+-Clean up game
+-Make it look pretty
 */
 
 
@@ -194,7 +200,6 @@ function collisionCheck (){
             // 2. person who finished the game is the last player
                     // if last player, then declare scores and compare a winner
         if (game.currentPlayer < (players.length -1)) {
-            resetTheGame()
             game.currentPlayer++
             score = 0 
         } else {
@@ -276,3 +281,4 @@ Reset the whole game
 
 // The Obstacles Hint from Zeke
 // the obstacles should be in an array somewhere (probably as objects)
+
