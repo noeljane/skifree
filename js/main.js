@@ -26,10 +26,15 @@ Punch List:
     -
 
 Day 4 
--Game does not reset automatically
+-Game does not reset automatically x
 -Need to set up more obstacles
+-set up scroll???? or just have objects moving?
+    -if no scroll, rebuild scoring
+- Have a way to refresh the scoreboard/players (?)
+    -if not, get rid of form submission   
 -Clean up game
 -Make it look pretty
+
 */
 
 
@@ -52,11 +57,12 @@ var $scoreBoard = $('#scoreboard')
 
 //Global Variables
 var players = [
-    {name: "Noel",
+    {name: "Player 1",
     score: 0},
-    {name: "Chuck",
+    {name: "Player 2",
     score: 0}
 ]
+
 var game = {
     currentPlayer: 0
 }
@@ -70,14 +76,17 @@ var score
 var skier = {
     x: 0,
     y: 0,
-    updateSpeed: 500
+    updateSpeed: 500,
 }
 
-var obstacle = {
+var obstacles = [{
+    name: "tree",
     x:0,
     y:0,
-    updateSpeed:100
-}
+    updateSpeed:100,
+}]
+
+
 //Interval Variables
 var skierInterval
 var obstacleInterval
@@ -161,6 +170,7 @@ function createObstacle (){
      $newObstacle.css({
          "top": window.innerHeight,
          "left":  randomInt(window.innerWidth) + "px",  
+        // "background:" obstacles[i].background
      })
      $slope.append($newObstacle)
      obstacleInterval = setInterval(function(){
@@ -192,7 +202,7 @@ function collisionCheck (){
     (skierHeight + skier.y > obstacleY)){
         $skier.toggle("explode")
         console.log("Wipeout!")
-        stopTheGame()
+        resetTheGame()
         playerLost()
         // 2 possibilities
             // 1. person who just finished the game is NOT the last player
@@ -245,9 +255,11 @@ function compareScores (){
     //find the highest score in the players array. 
     // make an announcement where we say the name of the player with highest score wins
     var winningPlayer = players.reduce(function(prev, current) {
-        return (prev.score > current.score) ? prev : current    
+        return (prev.score > current.score) ? prev : current  
     })
-    $scoreboard.text("Winner:" + winningPlayer)
+    console.log(winningPlayer)
+    console.log(winningPlayer.name)
+    $scoreBoard.text("Winner:" + winningPlayer.name)
 }
 //Event Listeners
 $start.on("click", startSkiing)
