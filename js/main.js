@@ -12,11 +12,11 @@ Day 4
 
 
 Punch List: 
-    -Make scoreboard start from zero or make more sense
-    -make skier go faster
-    -expand the board so that skier can go farther
+    -Make scoreboard start from zero or make more sense x
+    -make skier go faster n/a
+    -expand the board so that skier can go farther n/a
     -hide form when you are playing game
-    -fix the randomization for the obstacles
+    -fix the randomization for the obstacles x
     -have obstacles be hidden when they go above the skier
         -or hide submission form and scoreboard
         -or float the scoreboard so obstacles go underneath
@@ -30,6 +30,7 @@ Punch List:
 
 var $body = $('body')
 var $slope = $('#slope')
+var $topStuff = $('#topStuff')
 
 //Buttons
 var $turnRight = $('#turnRight')
@@ -132,6 +133,7 @@ function createSkier (){
 
 //Function to start skiing
 function startSkiing () {
+    $topStuff.hide()
     createSkier()
     score = 0
     console.log("You clicked start! Gnarly, bro!")
@@ -228,6 +230,7 @@ function collisionCheck(obstacle){
             score = 0 
         } else {
             compareScores()
+            $topStuff.show()
         }
     } 
 }
@@ -237,7 +240,6 @@ function resetTheGame (){
         clearInterval(skierInterval)
         clearInterval(obstacleInterval)
         clearInterval(generateObstacleInterval)
-
         $slope.children().remove()  
     // get of the skier
     // get rid of the old obstacle
@@ -280,8 +282,4 @@ function compareScores (){
 $start.on("click", startSkiing)
 $stop.on("click", resetTheGame)
 
-
-
-// The Obstacles Hint from Zeke
-// the obstacles should be in an array somewhere (probably as objects)
 
