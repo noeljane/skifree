@@ -34,7 +34,16 @@ ul {
     position: fixed;
 }
 
+#obstacle{
+    position: absolute;
+    background: forestgreen;
+    border: 2px solid black;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
 
+}
+  
 .tree {
     color: forestgreen;
     border: 2px solid black;

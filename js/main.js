@@ -1,40 +1,4 @@
 /*
-
-Steps to get this work done: 
-
-Day 1 
-1. Link JS and CSS files x
-2. Create an obstacle using a variable x
-3. Create a constructor function n/a
-4. Think about how the obstacle is moving across the screen x
-5. Move the skier and obstacle lower down x
-6. Is it possible to set it up vertically? yes x
-7. Make the skier x
-8. Make the skier move x
-
-//Zeke notes: 
-//Make sure that we can "get" the x & y coordinate of each obstacle because that information will help us figure out collision
-//Need to get the x coordinate of the skier
-//To get the y value, I need to find out what "top" is for each obstacle (top is the y value for each obstacle)
-//To get the x value, I need the "left" is for each obstacle
-// On each run of the interval function, we should check to see if the obstacle is colliding with the skier
-
-Day 2
-1. Make the obstacles come automatically x 
-2. Set up what a collision means x
-    -make scoreboard
-    -establish boundary of collision 
-        -set up y coordinates x
-        -set up x cooridnates 
-3. Make the obstacles appear from different points on the screen. x 
-4. Make the skier jump different directions to avoid collision. x
-
-Day 2 Afternoon: 
-1. Figure out how to check x coordinates x
-2. Clean up code
-    -make more things happen programmatically
-    -make code more DRY and easy to read
-
 Day 3
 1. Add Scoreboard x
 2. Add player 2 capacity
@@ -46,11 +10,11 @@ Day 3
     -compare scores between player 1 and player 2
     -declare a winner
     -add a button to play again
-3. Make the window scroll as you play 
+3. Make the window scroll as you play or just keep the player still  
 4. Make more obstacles
 5. Clean up code whereever possible and make it more programmatic
     -see Punch List
-6. Make it possible to move skier with the left and right keys
+6. Make it possible to move skier with the left and right keys x
 7. Make it beautiful  
 8. Add an ogre??? 
 
@@ -61,7 +25,6 @@ Punch List:
     -hide form when you are playing game
     -
 */
-
 
 
 // Variables
@@ -96,7 +59,6 @@ var $skier
 var $newObstacle
 var obstacleX
 var obstacleY
-var skierY
 var score
 
 var skier = {
@@ -104,9 +66,15 @@ var skier = {
     y: 0,
     updateSpeed: 500
 }
+
+var obstacle = {
+    x:0,
+    y:0,
+    updateSpeed:100
+}
 //Interval Variables
 var skierInterval
-var sbstacleInterval
+var obstacleInterval
 
 //Variables to create multiple speeds and obstacles
 var obstacleNames = ["tree","rock","ogre"]
@@ -137,7 +105,7 @@ function createSkier (){
     $slope.append($skier)
     $skier.css('left', window.innerWidth/2 + 'px') 
     skier.x = parseInt($skier.position().left)
-    skierY = parseInt($skier.position().top)
+    skier.y = parseInt($skier.position().top)
 
 }
 
@@ -148,12 +116,9 @@ function startSkiing () {
     createSkier()
     console.log("You clicked start! Gnarly, bro!")
     skierInterval = setInterval(function(){
-        console.log("Rip it!")
         $skier.css("top", "+=5px")
         skier.x = parseInt($skier.position().left)
-        skierY = parseInt($skier.position().top)
-        console.log(skier.x)
-        console.log(skierY)
+        skier.y = parseInt($skier.position().top)
         //display score
         displayScore()
     },skier.updateSpeed)
@@ -170,19 +135,6 @@ $body.on('keydown',function (evt){
     }
 })
 
-//Function to make my skier move right
-$turnRight.on('click', function (){
-    console.log("Sick carves, brah!")
-    $skier.css('left', '+=10px') 
-    console.log($skier.css('left'))
-})
-
-// Function to make my skier move left
-$turnLeft.on('click', function (){
-    console.log("A la izquierda broseph!")
-    $skier.css('left', '-=10px')
-})
-
 //Function for Random Number
 function randomInt(hi) {
     return Math.floor(Math.random()* hi)
@@ -193,14 +145,8 @@ function createObstacle (){
      //creates obstacle
      $newObstacle = $("<div id='obstacle'>")
      $newObstacle.css({
-         "position": "absolute",
          "top": window.innerHeight,
-         "color": "forestgreen",
-         "border": "2px solid black",
-         "width": "10px",
-         "height": "10px",
-         "left":  randomInt(window.innerWidth) + "px",
-         "display": "inline-block",    
+         "left":  randomInt(window.innerWidth) + "px",  
      })
      $slope.append($newObstacle)
      obstacleInterval = setInterval(function(){
@@ -219,7 +165,7 @@ function createObstacle (){
 //Function to check for collision
 function collisionCheck (){
     skier.x = parseInt($skier.position().left)
-    skierY = parseInt($skier.position().top)
+    skier.y = parseInt($skier.position().top)
     obstacleX = parseInt($newObstacle.position().left)
     obstacleY = parseInt($newObstacle.position().top)
     skierWidth = 10
@@ -228,8 +174,8 @@ function collisionCheck (){
     obstacleHeight = 10
 
     if((skier.x < obstacleX + obstacleWidth) && (skier.x + skierWidth > obstacleX) && 
-    (skierY < obstacleY + obstacleHeight) && 
-    (skierHeight + skierY > obstacleY)){
+    (skier.y < obstacleY + obstacleHeight) && 
+    (skierHeight + skier.y > obstacleY)){
         $skier.toggle("explode")
         console.log("Wipeout!")
         stopTheGame()
@@ -246,16 +192,16 @@ function stopTheGame (){
 
 // Function to score the game 
 function displayScore (){
-    skierY = parseInt($skier.position().top)
-    score = skierY
+    skier.y = parseInt($skier.position().top)
+    score = skier.y
     $scoreBoard.text("Distance traveled: " + score)
 
 }
 
 // Function to stop the game when there is a crash
 function playerLost (){
-    skierY = parseInt($skier.position().top)
-    score = skierY
+    skier.y = parseInt($skier.position().top)
+    score = skier.y
     console.log("Player lost!")
     $scoreBoard.text("You crashed! Your final score is " + score)
     var playerFinalScore = $('<li>')
@@ -273,7 +219,7 @@ function compareScores (){
     } else if (player2score > player1score){
         console.log ("Player 2 wins!")
     } else {
-        console.log("You fucked something up or Player 2 needs to play still")
+        console.log("Player 2 needs to play still")
         game.currentPlayer = players[1]
     }
     
@@ -284,13 +230,13 @@ $start.on("click", startSkiing)
 $stop.on("click", stopTheGame)
 
 // Player 1 plays 
-function playerPlays (){
-    createPlayer(evt)
-    createSkier()
-    startSkiing()
-    collisionCheck()
-    console.log("Play complete")
-}
+// function playerPlays (){
+//     createPlayer(evt)
+//     createSkier()
+//     startSkiing()
+//     collisionCheck()
+//     console.log("Play complete")
+// }
 
 // 
 
