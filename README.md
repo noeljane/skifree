@@ -72,9 +72,10 @@ I want to be able to compare my score with player 2.
 
 
 --
-####credit
-Zeke Abuhoff
-Canva for images 
+####credits
+- Zeke Abuhoff
+- [Images from Aidan Fray:](https://goo.gl/images/YL8UJN)
+
 
 
 

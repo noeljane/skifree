@@ -46,12 +46,7 @@ var $start = $('#start')
 var $scoreBoard = $('#scoreboard')
 
 //Global Variables
-var players = [
-    {name: "Player 1",
-    score: 0},
-    {name: "Player 2",
-    score: 0}
-]
+var players = []
 
 var game = {
     currentPlayer: 0
@@ -114,21 +109,22 @@ function createPlayer (evt){
         score: 0
     }
     players.push(newPlayer)
-    addPlayerToList()
-
+    var $newName = $('<li>')
+    $newName.text(newPlayer.name)
+    $list.append($newName)
 }
 
-function addPlayerToList (){
-    var $newItem = $('<li>')
-    $newItem.text($nameField.val())
-    $list.append($newItem)
-}
+// function addPlayerToList (name){
+//     var $newItem = $('<li>')
+//     $list.append(players)
+// }
 
 function createSkier (){
     $skier = $("<div class='slopeElement' id='skier'>")
     $skier.innerHTML = '<img src="skier\.png">'
     $slope.append($skier)
     $skier.css('left', window.innerWidth/2 + 'px') 
+    $skier.css('top', window.innerHeight/2 + 'px')
     skier.x = parseInt($skier.position().left)
     skier.y = parseInt($skier.position().top)
 
@@ -136,6 +132,16 @@ function createSkier (){
 
 //Function to start skiing
 function startSkiing () {
+    if(players.length === 0){
+        players.push({
+        name: "Player 1",
+        score: 0
+    })
+        players.push({
+        name: "Player 2",
+        score: 0
+        })
+    }
     $topStuff.hide()
     createSkier()
     score = 0
@@ -229,6 +235,7 @@ function collisionCheck(obstacle){
         } else {
             compareScores()
             $topStuff.show()
+            $('#instructions').hide()
         }
     } 
 }
@@ -259,9 +266,13 @@ function playerLost (){
     console.log("Player lost!")
     players[game.currentPlayer].score = score
     $scoreBoard.text("You crashed! Your final score is " + score)
-    var playerFinalScore = $('<li>')
-    playerFinalScore.text(score)
-    $list.append(playerFinalScore)
+    $list.children().remove()
+    players.forEach(function(value){
+        var playerFinalScore = $('<li>')
+        playerFinalScore.text(value.name + " " + value.score)
+        $list.append(playerFinalScore)
+    })
+   
 }
 
 // Function to compare scores
@@ -274,8 +285,14 @@ function compareScores (){
     })
     console.log(winningPlayer)
     console.log(winningPlayer.name)
-    $scoreBoard.text("Winner:" + winningPlayer.name)
+    $scoreBoard.text("Winner:  " + winningPlayer.name)
 }
+
+//function for new game
+    function newGame (){
+        resetTheGame()
+        players = []
+    }
 //Event Listeners
 $start.on("click", startSkiing)
 $stop.on("click", resetTheGame)
