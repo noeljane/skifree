@@ -64,23 +64,7 @@ var skier = {
     updateSpeed: 500,
 }
 
-var obstacles = [{
-    name: "tree",
-    background:"forestgreen",
-    x:0,
-    y:0,
-}, {
-    name: "rock",
-    background: "black",
-    x:0,
-    y:0, 
-}, {
-    name: "ogre",
-    background: "grey",
-    x:0,
-    y:0,
-}
-]
+
 
 
 //Interval Variables
@@ -183,7 +167,6 @@ function createObstacle (){
         $newObstacle.css({
             "top": window.innerHeight,
             "left":  randomInt(window.innerWidth) + "px",  
-            "background": "forestgreen",
         })
         $slope.append($newObstacle)
         obstacleIntervals.push(setInterval(function(){

@@ -6,34 +6,16 @@
 
 In this 1991 Microsoft classic, you are a skier who is trying to avoid obstacles on the ski slope. 
 
- I am making a simpler version where the obstacles come toward the skier and the skier must jump at the right time to avoid the obstacle. 
+ I am making a simpler version where the obstacles come toward the skier and the skier must move at the right time to avoid the obstacle. 
 
  ![Screenshot](./skier.png)
 
 ####How to Play: 
 
-Users must en
+Click start and move your skier left and right to avoid obstacles. After you crash, it is player 2's turn. 
 
-######Controls:
+The winner is the skier who has avoided obstacles for longer. 
 
-start button 
-	-makes obstacles start 	
-
-
-######Scoring
-- Time
-- Speed
-
-
-######How to die/lose
-- hit 10+ objects
-
-###### How to win
-- Stay alive for longer
-- Go farther in the same time 
-
-
---
 
 ###Development and Technologies: 
 
@@ -75,6 +57,7 @@ I want to be able to compare my score with player 2.
 ####credits
 - Zeke Abuhoff
 - [Images from Aidan Fray:](https://goo.gl/images/YL8UJN)
+- [Tree image from here](https://goo.gl/images/3WBY6i)
 
 
 
