@@ -1,31 +1,3 @@
-/*
-Day 4 
--Game does not reset automatically x
--Need to set up more obstacles
--set up scroll???? or just have objects moving?
-    -if no scroll, rebuild scoring
-- Have a way to refresh the scoreboard/players (?)
-    -if not, get rid of form submission
-- Add a button to play again    
--Clean up game
--Make it look pretty
-
-
-Punch List: 
-    -Make scoreboard start from zero or make more sense x
-    -make skier go faster n/a
-    -expand the board so that skier can go farther n/a
-    -hide form when you are playing game
-    -fix the randomization for the obstacles x
-    -have obstacles be hidden when they go above the skier
-        -or hide submission form and scoreboard x
-        -or float the scoreboard so obstacles go underneath
-    -get rid of players in the array and add explicit instructions
-
-    -
-
-*/
-
 
 // Variables
 // ////////////////////////////////////////////////////////////////////
@@ -96,13 +68,13 @@ function createPlayer (evt){
     var $newName = $('<li>')
     $newName.text(newPlayer.name)
     $list.append($newName)
+    $('input:text').val(
+        function(){
+            $(this).val('');
+        })
 }
 
-// function addPlayerToList (name){
-//     var $newItem = $('<li>')
-//     $list.append(players)
-// }
-
+// Function add a skier to the HTML
 function createSkier (){
     $skier = $("<div class='slopeElement' id='skier'>")
     $skier.innerHTML = '<img src="skier\.png">'
@@ -142,11 +114,7 @@ function startSkiing () {
     $('window').scroll()
 }
 
-function generateObstacles() {
-    generateObstacleInterval = setInterval(createObstacle, 3000)
-}
-
-//Event listener for the keyboard
+//Event listeners for the keyboard
 $body.on('keydown',function (evt){
     if(evt.which === 37){
         $skier.css('left', '-=10px')
@@ -180,7 +148,10 @@ function createObstacle (){
         }, 30))
 } 
 
-
+// This function makes more obstacles appear at a set interval
+function generateObstacles() {
+    generateObstacleInterval = setInterval(createObstacle, 3000)
+}
 
 
 //Function to check for collision
@@ -223,7 +194,6 @@ function collisionCheck(obstacle){
     } 
 }
 // Function to reset the game
-
 function resetTheGame (){
         clearInterval(skierInterval)
         clearInterval(obstacleInterval)
@@ -275,13 +245,11 @@ function compareScores (){
     function newGame (){
         resetTheGame()
         players = []
+        $list.children().remove()
+        $topStuff.show()
+        $scoreBoard.text("Enter your name to start a new game")
     }
 //Event Listeners
 $start.on("click", startSkiing)
 $stop.on("click", resetTheGame)
-
-/*
-//Check List for LAST NIGHT
-    -ReadME
-    -GH Pages
-*/
+$('#newGame').on("click", newGame)
