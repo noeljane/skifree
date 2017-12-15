@@ -1,31 +1,23 @@
 
-<p>Put your logo here</p>
-
---
-#Ski Free
+#Ski Free  
 --
 
 ###Description of the game:
 
-In this 1991 Microsoft classic, you are a skier who is trying to avoid obstacles and getting eaten by ogres. 
+In this 1991 Microsoft classic, you are a skier who is trying to avoid obstacles on the ski slope. 
 
-Since I'm a baby coder, I am making a much simpler version where the obstacles come toward the skiier and the skier must jump at the right time to avoid the obstacle. 
+ I am making a simpler version where the obstacles come toward the skier and the skier must jump at the right time to avoid the obstacle. 
 
- ![Screenshot](./screenshot.png)
+ ![Screenshot](./skier.png)
 
 ####How to Play: 
+
+Users must en
 
 ######Controls:
 
 start button 
-	-makes obstacles start 
-	
-pause button 
-	-lets you take a freakin' breath
-	
-jump 
-	
-	
+	-makes obstacles start 	
 
 
 ######Scoring
@@ -35,7 +27,6 @@ jump
 
 ######How to die/lose
 - hit 10+ objects
-- get eaten by an ogre
 
 ###### How to win
 - Stay alive for longer
@@ -51,37 +42,28 @@ jump
 --
 
 ###User Stories
+
 I want instructions on how to play on the first screen you see
 
 I want to hit start to begin play
 
-I want to control my guy using a click
+I want to control my guy using left and right arrows.
 
-I want to be able to score based off how long I live
+I want to be able to score based off how long I live.
 
-I want to be able to compare my score with player 2 
+I want to be able to compare my score with player 2.
 
 
 --
 ####MVP:
 
-- guy has random objects coming near him 
-- objects randomly appear from the left of the screen
-- when guy hits object, he loses points or health
-- player 2 can play and score is compared to player 1
+- Skier has random objects coming near him 
+- Objects randomly appear from the bottom of the screen
+- When skier hits object, his gameplay ends. 
+- Player 2 can play and score is compared to player 1
 
 --
 
-Stuff I already think I can figure out: 
-
-- objects randomly appear
-- compare player 1 score to player 2 
-
-Stuff I need help with: 
-
-- how to make guy run into object 
-
---
 
 ####Dream features:
 - ogre
@@ -91,7 +73,10 @@ Stuff I need help with:
 
 --
 ####credit
-use piskel app to make some art
+Zeke Abuhoff
+Canva for images 
+
+
 
 --
 

@@ -18,9 +18,11 @@ Punch List:
     -hide form when you are playing game
     -fix the randomization for the obstacles x
     -have obstacles be hidden when they go above the skier
-        -or hide submission form and scoreboard
+        -or hide submission form and scoreboard x
         -or float the scoreboard so obstacles go underneath
     -get rid of players in the array and add explicit instructions
+
+    -
 
 */
 
@@ -124,6 +126,7 @@ function addPlayerToList (){
 
 function createSkier (){
     $skier = $("<div class='slopeElement' id='skier'>")
+    $skier.innerHTML = '<img src="skier\.png">'
     $slope.append($skier)
     $skier.css('left', window.innerWidth/2 + 'px') 
     skier.x = parseInt($skier.position().left)
@@ -159,11 +162,6 @@ $body.on('keydown',function (evt){
         $skier.css('left', '-=10px')
     } else if (evt.which === 39){
         $skier.css('left', '+=10px') 
-    } else if (evt.which === 40){
-        $skier.css('top', '+=10px')
-        $('body').animate({
-            scrollTop: $skier.offset().top
-        }, 2000)
     }
 })
 
@@ -202,8 +200,8 @@ function collisionCheck(obstacle){
     skier.y = parseInt($skier.position().top)
     obstacleX = parseInt(obstacle.position().left)
     obstacleY = parseInt(obstacle.position().top)
-    skierWidth = 10
-    obstacleWidth = 10
+    skierWidth = 50
+    obstacleWidth = 50
     skierHeight = 10
     obstacleHeight = 10
 
@@ -282,4 +280,8 @@ function compareScores (){
 $start.on("click", startSkiing)
 $stop.on("click", resetTheGame)
 
-
+/*
+//Check List for LAST NIGHT
+    -ReadME
+    -GH Pages
+*/
