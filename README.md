@@ -47,7 +47,7 @@ I want to feel nostalgia for the past.
 - When skier hits object, his gameplay ends. 
 - Player 2 can play and score is compared to player 1
 
---
+-- 
 
 
 #### Dream features:
@@ -62,7 +62,7 @@ I want to feel nostalgia for the past.
 - [Skier image from Aidan Fray:](https://goo.gl/images/YL8UJN)
 - [Tree image from here](https://goo.gl/images/3WBY6i)
 
---
+--  
 
 
 
