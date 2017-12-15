@@ -1,6 +1,6 @@
 
 --
-#Ski Free  
+#[Ski Free ](https://noeljane.github.io/skifree/) 
 --
 
 ###Description of the game:
@@ -17,6 +17,7 @@ Click start and move your skier left and right to avoid obstacles. After you cra
 
 The winner is the skier who has avoided obstacles for longer. 
 
+[Click here to play!](https://noeljane.github.io/skifree/)
 
 ###Development and Technologies: 
 
