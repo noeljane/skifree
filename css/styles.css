@@ -1,3 +1,6 @@
+body, h1, button, p, ul, #scoreboard{
+    font-family: 'Press Start 2P', cursive;
+}
 body {
     background: #e8e9ee;
     height:600px;
@@ -10,13 +13,19 @@ h1 {
     text-align: center;
 }
 
+h2,p {
+    text-align: center;
+}
+
 button {
     margin: 10px;
+    text-align: center;
 }
 
 ul {
-    color: purple;
+    color: cornflowerblue;
     list-style-type: none;
+    text-align: center;
 }
 
 #scoreboard{
