@@ -23,7 +23,7 @@ The winner is the skier who has avoided obstacles for longer.
 
 <p> HTML, CSS, Javascript, and jQuery </p>
 
---
+---
 
 ### User Stories
 
@@ -39,7 +39,7 @@ I want to be able to compare my score with player 2.
 
 I want to feel nostalgia for the past. 
 
---
+---
 #### MVP:
 
 - Skier has random objects coming near him 
@@ -47,7 +47,7 @@ I want to feel nostalgia for the past.
 - When skier hits object, his gameplay ends. 
 - Player 2 can play and score is compared to player 1
 
--- 
+---
 
 
 #### Dream features:
@@ -57,7 +57,7 @@ I want to feel nostalgia for the past.
 - Silly things like a snowboarder, child skier and ski lift also appear. 
 - Be able to pause the game 
 
---
+---
 #### Credits
 - [Skier image from Aidan Fray:](https://goo.gl/images/YL8UJN)
 - [Tree image from here](https://goo.gl/images/3WBY6i)
