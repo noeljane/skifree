@@ -61,7 +61,7 @@ var score
 var skier = {
     x: 0,
     y: 0,
-    updateSpeed: 500,
+    updateSpeed: 200,
 }
 
 
@@ -177,7 +177,7 @@ function createObstacle (){
                 //calculate a new x for the obstacle
                 $newObstacle.css("left", randomInt(window.innerWidth))
             }
-        }, 50))
+        }, 30))
 } 
 
 
